@@ -39,7 +39,10 @@ ULIBDIR =
 # List all user libraries here
 ULIBS =
 
+include playbox2d/playbox2d.mk
+include extension/extension.mk
+
 include $(SDK)/C_API/buildsupport/common.mk
 
-# Make sure we compile a universal binary for M1 macs
+# Make sure we compile a universal binary for M1 and Intel macs
 DYLIB_FLAGS+=-arch x86_64 -arch arm64
