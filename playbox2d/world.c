@@ -1,6 +1,12 @@
+// SPDX-FileCopyrightText: 20219-present Erin Catto, Dustin Mierau
+//
+// SPDX-License-Identifier: MIT
+
+#include "playbox2d/playbox2d.h"
 #include "playbox2d/world.h"
-#include "playbox2d/platform.h"
 #include "playbox2d/arbiter.h"
+
+#include "pdbase/pdbase.h"
 
 int PBWorldFindArbiter(PBWorld* world, PBBody* body1, PBBody* body2);
 int PBWorldFindFirstArbiterForBody(PBWorld* world, PBBody* body);
@@ -10,7 +16,7 @@ PBBody* PBWorldGetBody(PBWorld* world, int i);
 PBJoint* PBWorldGetJoint(PBWorld* world, int i);
 
 PBWorld* PBWorldCreate(PBVec2 gravity, int iterations) {
-  PBWorld* world = pb_alloc(sizeof(PBWorld));
+  PBWorld* world = PDBASE_ALLOC(sizeof(PBWorld));
   memset(world, 0, sizeof(PBWorld));
   
   world->gravity = gravity;
@@ -28,7 +34,7 @@ void PBWorldFree(PBWorld* world) {
   PBArrayFree(world->bodies);
   PBArrayFree(world->joints);
   PBArrayFree(world->arbiters);
-  pb_free(world);
+  PDBASE_FREE(world);
 }
 
 void PBWorldAddBody(PBWorld* world, PBBody* body) {

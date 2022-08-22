@@ -1,5 +1,9 @@
-#ifndef PLAYBOX_JOINT_H
-#define PLAYBOX_JOINT_H
+// SPDX-FileCopyrightText: 20219-present Erin Catto, Dustin Mierau
+//
+// SPDX-License-Identifier: MIT
+
+#ifndef PLAYBOX2D_JOINT_H
+#define PLAYBOX2D_JOINT_H
 
 #include "playbox2d/maths.h"
 #include "playbox2d/body.h"

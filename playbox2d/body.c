@@ -1,8 +1,15 @@
-#include "playbox2d/platform.h"
+// SPDX-FileCopyrightText: 20219-present Erin Catto, Dustin Mierau
+//
+// SPDX-License-Identifier: MIT
+
+#include "playbox2d/playbox2d.h"
 #include "playbox2d/body.h"
 
+#define PDBASE_LOG_ENABLE
+#include "pdbase/pdbase.h"
+
 PBBody* PBBodyCreate(void) {
-  PBBody* body = pb_alloc(sizeof(PBBody));
+  PBBody* body = PDBASE_ALLOC(sizeof(PBBody));
   
   body->position = PBVec2MakeEmpty();
   body->rotation = 0.0f;
@@ -21,8 +28,8 @@ PBBody* PBBodyCreate(void) {
 }
 
 void PBBodyFree(PBBody* body) {
-  pb_log("playbox: freeing body %p", body);
-  pb_free(body);
+  PDBASE_LOG("playbox: freeing body %p", body);
+  PDBASE_FREE(body);
 }
 
 void PBBodySet(PBBody* body, const PBVec2 w, float m) {

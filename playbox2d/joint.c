@@ -1,10 +1,16 @@
-#include "playbox2d/platform.h"
+// SPDX-FileCopyrightText: 20219-present Erin Catto, Dustin Mierau
+//
+// SPDX-License-Identifier: MIT
+
+#include "playbox2d/playbox2d.h"
 #include "playbox2d/joint.h"
 #include "playbox2d/body.h"
 #include "playbox2d/maths.h"
 
+#include "pdbase/pdbase.h"
+
 PBJoint* PBJointCreate(PBBody* b1, PBBody* b2, const PBVec2 anchor) {
-  PBJoint* joint = pb_alloc(sizeof(PBJoint));
+  PBJoint* joint = PDBASE_ALLOC(sizeof(PBJoint));
   memset(joint, 0, sizeof(PBJoint));
   
   joint->body1 = b1;
@@ -26,14 +32,14 @@ PBJoint* PBJointCreate(PBBody* b1, PBBody* b2, const PBVec2 anchor) {
 }
 
 PBJoint* PBJointCreateEmpty(void) {
-  PBJoint* joint = pb_alloc(sizeof(PBJoint));
+  PBJoint* joint = PDBASE_ALLOC(sizeof(PBJoint));
   memset(joint, 0, sizeof(PBJoint));
   joint->biasFactor = 0.2f;
   return joint;
 }
 
 void PBJointFree(PBJoint* joint) {
-  pb_free(joint);
+  PDBASE_FREE(joint);
 }
 
 void PBJointPreStep(PBJoint* joint, float inv_dt) {

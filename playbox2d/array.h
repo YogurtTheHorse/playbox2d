@@ -1,5 +1,9 @@
-#ifndef PLAYBOX_ARRAY_H
-#define PLAYBOX_ARRAY_H
+// SPDX-FileCopyrightText: 20219-present Erin Catto, Dustin Mierau
+//
+// SPDX-License-Identifier: MIT
+
+#ifndef PLAYBOX2D_ARRAY_H
+#define PLAYBOX2D_ARRAY_H
 
 #include <stdlib.h>
 

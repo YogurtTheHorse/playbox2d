@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 20219-present Erin Catto, Dustin Mierau
+//
+// SPDX-License-Identifier: MIT
+
 #include <math.h>
 #include <float.h>
 #include <assert.h>

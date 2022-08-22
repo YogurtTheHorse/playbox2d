@@ -1,24 +1,31 @@
+// SPDX-FileCopyrightText: 20219-present Erin Catto, Dustin Mierau
+//
+// SPDX-License-Identifier: MIT
+
+#include "playbox2d/playbox2d.h"
 #include "playbox2d/array.h"
-#include "playbox2d/platform.h"
+
+#define PDBASE_LOG_ENABLE
+#include "pdbase/pdbase.h"
 
 PBArray* PBArrayCreate(size_t item_size) {
-  PBArray* array = (PBArray*)pb_alloc(sizeof(PBArray));
+  PBArray* array = (PBArray*)PDBASE_ALLOC(sizeof(PBArray));
   memset(array, 0, sizeof(PBArray));
   array->item_size = item_size;
-  pb_log("PBArray: creating with item size %i", array->item_size);
+  PDBASE_DBG_LOG("PBArray: creating with item size %i", array->item_size);
   return array;
 }
   
 void PBArrayFree(PBArray* array) {
   if(array->first != NULL) {
-    pb_free(array->first);
+    PDBASE_FREE(array->first);
   }
-  pb_free(array);
+  PDBASE_FREE(array);
 }
   
 void* PBArrayGetItem(PBArray* array, int i) {
   if(i >= array->count) {
-    pb_log("PBArray: attempt to fetch item outside of bounds");
+    PDBASE_LOG("PBArray: attempt to fetch item outside of bounds");
     return NULL;
   }
   
@@ -28,7 +35,7 @@ void* PBArrayGetItem(PBArray* array, int i) {
 void PBArrayRemoveAllItems(PBArray* array) {
   array->count = 0;
   if(array->first != NULL) {
-    pb_free(array->first);
+    PDBASE_FREE(array->first);
     array->first = NULL;
   }
 }
@@ -39,24 +46,24 @@ void PBArrayRemoveItem(PBArray* array, void* item) {
     PBArrayRemoveItemAt(array, i);
   }
   else {
-    pb_log("PBArray: couldnt find item %p", item);
+    PDBASE_LOG("PBArray: couldnt find item %p", item);
   }
 }
 
 void PBArrayAppendItem(PBArray* array, void* item) {
   if(item == NULL) {
-    pb_log("PBArray: attempt to store NULL item");
+    PDBASE_LOG("PBArray: attempt to store NULL item");
     return;
   }
   
   array->count++;
   
   if(array->first == NULL) {
-    array->first = pb_alloc(array->item_size);
+    array->first = PDBASE_ALLOC(array->item_size);
     memset(array->first, 0, array->item_size);
   }
   else {
-    array->first = pb_realloc(array->first, array->item_size * array->count);
+    array->first = PDBASE_REALLOC(array->first, array->item_size * array->count);
     memset(array->first + (array->item_size * (array->count - 1)), 0, array->item_size);
   }
   
@@ -65,17 +72,17 @@ void PBArrayAppendItem(PBArray* array, void* item) {
   
 void PBArrayRemoveItemAt(PBArray* array, int i) {
   if(array->first == NULL || array->count == 0) {
-    pb_log("PBArray: erase item in empty array");
+    PDBASE_LOG("PBArray: erase item in empty array");
     return;
   }
   
   if(i >= array->count) {
-    pb_log("PBArray: attempt to erase item outside of bounds");
+    PDBASE_LOG("PBArray: attempt to erase item outside of bounds");
     return;
   }
   
   if(i < 0) {
-    pb_log("PBArray: attempt to erase item at negative index");
+    PDBASE_LOG("PBArray: attempt to erase item at negative index");
     return;
   }
   
@@ -86,11 +93,11 @@ void PBArrayRemoveItemAt(PBArray* array, int i) {
   }
   
   if(array->count == 0) {
-    pb_free(array->first);
+    PDBASE_FREE(array->first);
     array->first = NULL;
   }
   else {
-    array->first = pb_realloc(array->first, array->item_size * array->count);
+    array->first = PDBASE_REALLOC(array->first, array->item_size * array->count);
   }
 }
   
@@ -111,13 +118,13 @@ int PBArrayIndexOfItem(PBArray* array, void* item) {
     
     // Quickly compare first bytes.
     if((*(char*)found_item) == first_byte) {
-      pb_log("FIRST CHECK PASSED");
+      PDBASE_LOG("FIRST CHECK PASSED");
       if(memcmp(found_item, item, array->item_size) == 0) {
         return i;
       }
     }
     else {
-      pb_log("FAILED FIRST CHECK");
+      PDBASE_LOG("FAILED FIRST CHECK");
     }
   }
   return -1;

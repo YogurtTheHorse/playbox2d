@@ -1,5 +1,9 @@
-#ifndef PLAYBOX_WORLD_H
-#define PLAYBOX_WORLD_H
+// SPDX-FileCopyrightText: 20219-present Erin Catto, Dustin Mierau
+//
+// SPDX-License-Identifier: MIT
+
+#ifndef PLAYBOX2D_WORLD_H
+#define PLAYBOX2D_WORLD_H
 
 #include "playbox2d/body.h"
 #include "playbox2d/joint.h"

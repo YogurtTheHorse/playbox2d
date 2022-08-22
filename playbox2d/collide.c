@@ -1,4 +1,8 @@
-#include "playbox2d/platform.h"
+// SPDX-FileCopyrightText: 20219-present Erin Catto, Dustin Mierau
+//
+// SPDX-License-Identifier: MIT
+
+#include "playbox2d/playbox2d.h"
 #include "playbox2d/arbiter.h"
 
 // Box vertex and edge numbering:

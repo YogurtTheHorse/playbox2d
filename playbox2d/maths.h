@@ -1,5 +1,9 @@
-#ifndef PLAYBOX_MATHS_H
-#define PLAYBOX_MATHS_H
+// SPDX-FileCopyrightText: 20219-present Erin Catto, Dustin Mierau
+//
+// SPDX-License-Identifier: MIT
+
+#ifndef PLAYBOX2D_MATHS_H
+#define PLAYBOX2D_MATHS_H
 
 #include <math.h>
 #include <float.h>

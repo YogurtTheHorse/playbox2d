@@ -1,12 +1,19 @@
-#include "playbox2d/platform.h"
+// SPDX-FileCopyrightText: 20219-present Erin Catto, Dustin Mierau
+//
+// SPDX-License-Identifier: MIT
+
+#include "playbox2d/playbox2d.h"
 #include "playbox2d/arbiter.h"
 
+#define PDBASE_LOG_ENABLE
+#include "pdbase/pdbase.h"
+
 PBArbiter* PBArbiterCreate(PBBody* b1, PBBody* b2) {
-  PBArbiter* arbiter = pb_alloc(sizeof(PBArbiter));
+  PBArbiter* arbiter = PDBASE_ALLOC(sizeof(PBArbiter));
   memset(arbiter, 0, sizeof(PBArbiter));
     
     if(b1 == NULL || b2 == NULL) {
-        pb_log("playbox: PBArbiter: attempting to create arbiter with NULL body");
+        PDBASE_LOG("playbox: PBArbiter: attempting to create arbiter with NULL body");
     }
   
   if(b1 < b2) {
@@ -25,7 +32,7 @@ PBArbiter* PBArbiterCreate(PBBody* b1, PBBody* b2) {
 }
 
 void PBArbiterFree(PBArbiter* arbiter) {
-  pb_free(arbiter);
+  PDBASE_FREE(arbiter);
 }
 
 void PBArbiterUpdate(PBArbiter* arbiter, PBContact* newContacts, int numNewContacts) {
