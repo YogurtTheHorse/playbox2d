@@ -8,6 +8,7 @@ You can add it to your **Playdate** project by installing [**toybox.py**](https:
 
 ```console
 toybox add DidierMalenfant/playbox2d
+toybox update
 ```
 
 Then you [simply](https://github.com/toyboxpy/toybox.py#using-c-toyboxes) need to add `toyboxes/toybox.mk` to your makefile.
