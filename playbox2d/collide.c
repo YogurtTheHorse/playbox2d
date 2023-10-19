@@ -127,7 +127,7 @@ static void ComputeIncidentEdge(PBClipVertex c[2], const PBVec2 h, const PBVec2 
 int PBCollide(PBContact* contacts, PBBody* bodyA, PBBody* bodyB) {
   // Early discard with a simple AABB
   float AABBSum = bodyA->AABBHalfSize + bodyB->AABBHalfSize;
-  if ( PBAbs(bodyA->position.x-bodyB->position.x)>AABBSum || PBAbs(bodyA->position.y-bodyB->position.y)>AABBSum )
+  if ( fabsf(bodyA->position.x-bodyB->position.x)>AABBSum || fabsf(bodyA->position.y-bodyB->position.y)>AABBSum )
     return 0;
     
   // Setup

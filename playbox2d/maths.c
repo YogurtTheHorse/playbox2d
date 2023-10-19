@@ -111,11 +111,6 @@ inline PBMat22 PBMat22Add(PBMat22 m1, PBMat22 m2) {
 }
 
 
-
-inline float PBAbs(float a) {
-  return a > 0.0f ? a : -a;
-}
-
 inline PBVec2 PBVec2Abs(PBVec2 v1) {
   return PBVec2Make(fabsf(v1.x), fabsf(v1.y));
 }
@@ -128,16 +123,8 @@ inline float PBSign(float a) {
   return a < 0.0f ? -1.0f : 1.0f;
 }
 
-inline float PBMin(float a, float b) {
-  return a < b ? a : b;
-}
-
-inline float PBMax(float a, float b) {
-  return a > b ? a : b;
-}
-
 inline float PBClamp(float a, float low, float high) {
-  return PBMax(low, PBMin(a, high));
+  return fmaxf(low, fminf(a, high));
 }
 
 inline void PBSwap(void** a, void** b) {

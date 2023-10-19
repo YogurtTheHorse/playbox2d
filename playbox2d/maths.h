@@ -44,13 +44,10 @@ extern PBMat22 PBMat22Mult(PBMat22 m1, PBMat22 m2);
 extern PBVec2 PBMat22MultVec(PBMat22 m1, PBVec2 v1);
 extern PBMat22 PBMat22Add(PBMat22 m1, PBMat22 m2);
 
-extern float PBAbs(float a);
 extern PBVec2 PBVec2Abs(PBVec2 v1);
 extern PBMat22 PBMat22Abs(PBMat22 m1);
 
 extern float PBSign(float a);
-extern float PBMin(float a, float b);
-extern float PBMax(float a, float b);
 extern float PBClamp(float a, float low, float high);
 
 extern void PBSwap(void** a, void** b);

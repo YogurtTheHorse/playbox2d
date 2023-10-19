@@ -100,7 +100,7 @@ void PBArbiterPreStep(PBArbiter* arbiter, float inv_dt) {
     kTangent += arbiter->body1->invI * (PBVec2Dot(r1, r1) - rt1 * rt1) + arbiter->body2->invI * (PBVec2Dot(r2, r2) - rt2 * rt2);
     c->massTangent = 1.0f /  kTangent;
 
-    c->bias = -k_biasFactor * inv_dt * PBMin(0.0f, c->separation + k_allowedPenetration);
+    c->bias = -k_biasFactor * inv_dt * fminf(0.0f, c->separation + k_allowedPenetration);
 
     if(PBAccumulateImpulses) {
       // Apply normal + friction impulse
@@ -135,11 +135,11 @@ void PBArbiterApplyImpulse(PBArbiter* arbiter) {
     if(PBAccumulateImpulses) {
       // Clamp the accumulated impulse
       float Pn0 = c->Pn;
-      c->Pn = PBMax(Pn0 + dPn, 0.0f);
+      c->Pn = fmaxf(Pn0 + dPn, 0.0f);
       dPn = c->Pn - Pn0;
     }
     else {
-      dPn = PBMax(dPn, 0.0f);
+      dPn = fmaxf(dPn, 0.0f);
     }
 
     // Apply contact impulse
