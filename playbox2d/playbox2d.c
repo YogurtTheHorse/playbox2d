@@ -13,10 +13,6 @@ static const lua_reg worldClass[];
 static const lua_reg bodyClass[];
 static const lua_reg jointClass[];
 
-#define CLASSNAME_WORLD "playbox2d.world"
-#define CLASSNAME_BODY "playbox2d.body"
-#define CLASSNAME_JOINT "playbox2d.joint"
-
 void register_playbox2d(PlaydateAPI* unused_pd) {
   const char* err = NULL;
 
@@ -215,6 +211,32 @@ int playbox2d_body_getPolygon(lua_State* L) {
   return 8;
 }
 
+int playbox2d_body_setCallback(lua_State* L) {
+  PBBody* body = getBodyArg(1);
+  const char* funcName = pd->lua->getArgString(2);
+
+  body->collisionFunc = funcName;
+
+  return 0;
+}
+
+int playbox2d_body_setTag(lua_State* L) {
+  PBBody* body = getBodyArg(1);
+  int tag = pd->lua->getArgInt(2);
+
+  body->tag = tag;
+
+  return 0;
+}
+
+int playbox2d_body_getTag(lua_State* L) {
+  PBBody* body = getBodyArg(1);
+
+  pd->lua->pushInt(body->tag);
+
+  return 1;
+}
+
 static const lua_reg bodyClass[] = {
 { "new", playbox2d_body_new },
 { "__gc", playbox2d_body_delete },
@@ -234,6 +256,9 @@ static const lua_reg bodyClass[] = {
 { "setMass", playbox2d_body_setMass },
 { "setI", playbox2d_body_setI },
 { "getPolygon", playbox2d_body_getPolygon },
+{ "setCallback", playbox2d_body_setCallback },
+{ "setTag", playbox2d_body_setTag },
+{ "getTag", playbox2d_body_getTag },
 { NULL, NULL }
 };
 

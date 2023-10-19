@@ -247,6 +247,8 @@ void PBWorldBroadphase(PBWorld* world) {
       if(new_arbiter->numContacts > 0) {
         if(existing_arbiter_i == -1) {
           PBArrayAppendItem(world->arbiters, new_arbiter);
+
+          PBBodyCallCollision(bi, bj);
         }
         else {
           PBArbiter* arb = (PBArbiter*)PBArrayGetItem(world->arbiters, existing_arbiter_i);

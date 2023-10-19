@@ -27,11 +27,15 @@ typedef struct {
 
   // Reference to world
   void* world;
+  
+  int tag;
+  const char* collisionFunc;
 } PBBody;
 
 extern PBBody* PBBodyCreate(void);
 extern void PBBodyFree(PBBody* body);
 extern void PBBodySet(PBBody* body, const PBVec2 w, float m);
 extern void PBBodyAddForce(PBBody* body, const PBVec2 f);
+extern void PBBodyCallCollision(PBBody* first, PBBody* second);
 
 #endif

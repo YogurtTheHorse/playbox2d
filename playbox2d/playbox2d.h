@@ -7,6 +7,10 @@
 
 #include "pd_api.h"
 
+#define CLASSNAME_WORLD "playbox2d.world"
+#define CLASSNAME_BODY "playbox2d.body"
+#define CLASSNAME_JOINT "playbox2d.joint"
+
 #ifndef PBPositionCorrection
 #define PBPositionCorrection 1
 #endif

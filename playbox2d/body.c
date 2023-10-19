@@ -23,6 +23,8 @@ PBBody* PBBodyCreate(void) {
   body->invMass = 0.0f;
   body->I = FLT_MAX;
   body->invI = 0.0f;
+  body->collisionFunc = 0;
+  body->tag = 0;
   
   return body;
 }
@@ -30,6 +32,22 @@ PBBody* PBBodyCreate(void) {
 void PBBodyFree(PBBody* body) {
   PDBASE_LOG("playbox: freeing body %p", body);
   PDBASE_FREE(body);
+}
+
+void PBBodyCallCollision(PBBody* first, PBBody* second) {
+  const char* err = NULL;
+
+  if (first->collisionFunc) {
+    pd->lua->pushObject(first, CLASSNAME_BODY, 0);
+    pd->lua->pushObject(second, CLASSNAME_BODY, 0);
+    pd->lua->callFunction(first->collisionFunc, 2, &err);
+  }
+
+  if (second->collisionFunc) {
+    pd->lua->pushObject(second, CLASSNAME_BODY, 0);
+    pd->lua->pushObject(first, CLASSNAME_BODY, 0);
+    pd->lua->callFunction(second->collisionFunc, 2, &err);
+  }
 }
 
 void PBBodySet(PBBody* body, const PBVec2 w, float m) {
